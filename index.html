@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport Authentification</title>
+    <link rel="icon" href="Betycor.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        #auth-container, #form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input{
+            width: 95%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+         select, button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #form-container {
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #logo {
+            width: 200px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        @media (max-width: 600px) {
+            #auth-container, #form-container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Authentification Form -->
+    <div id="auth-container">
+        <div class="form-group">
+            <img src="Betycor.png" id="logo">
+            <label for="email">Utilisateur</label>
+            <input type="email" id="email" placeholder="Entrez l'utilisateur">
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" placeholder="Entrez votre mot de passe">
+        </div>
+        <button onclick="authenticate()">Se Connecter</button>
+    </div>
+
+    <!-- Formulaire Transport -->
+    <div id="form-container">
+        <!-- Remplacez "logo.png" par votre logo généré -->
+        <img src="Betycor.png" alt="Logo Transport" id="logo">
+        <h2>Sélectionnez un transport</h2>
+        <div class="form-group">
+            <label for="transport">Transport</label>
+            <select id="transport">
+                <option value="">Sélectionner un transport</option>
+                <option value="1">Transport 1</option>
+                <option value="2">Transport 2</option>
+                <option value="3">Transport 3</option>
+                <option value="4">Transport 4</option>
+            </select>
+        </div>
+        <button onclick="showLink()">Voir trajet</button>
+
+        <div id="link-container" class="hidden">
+            <p id="trajet-link"></p>
+        </div>
+    </div>
+
+    <script>
+        function authenticate() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Simple authentification check
+            if (email === "betycor" && password === "betycor2024") {
+                // Hide the auth form and show the transport form
+                document.getElementById("auth-container").style.display = "none";
+                document.getElementById("form-container").style.display = "block";
+            } else {
+                alert("Authentification échouée. Veuillez vérifier vos informations.");
+            }
+        }
+
+        function showLink() {
+            const transport = document.getElementById("transport").value;
+            const linkContainer = document.getElementById("link-container");
+            const trajetLink = document.getElementById("trajet-link");
+
+            // Check which transport is selected and display the appropriate link
+            if (transport) {
+                linkContainer.classList.remove("hidden");
+                if (transport === "1") {
+                    trajetLink.innerHTML = '<a target="_blank" href="https://maps.app.goo.gl/jVDxSo13zUKKMciQ9">Trajet 1</a>';
+                } else if (transport === "2") {
+                    trajetLink.innerHTML = '<a target="_blank" href="https://maps.google.com/?q=Trajet2">Trajet 2</a>';
+                } else if (transport === "3") {
+                    trajetLink.innerHTML = '<a target="_blank" href="https://maps.google.com/?q=Trajet3">Trajet 3</a>';
+                } else if (transport === "4") {
+                    trajetLink.innerHTML = '<a target="_blank" href="https://maps.google.com/?q=Trajet4">Trajet 4</a>';
+                }
+            } else {
+                linkContainer.classList.add("hidden");
+                alert("Veuillez sélectionner un transport.");
+            }
+        }
+    </script>
+</body>
+</html>
